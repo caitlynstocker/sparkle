@@ -11,10 +11,8 @@ public class Program
         StringInput input = new StringInput();
         int num = input.GetInput();
         
-        Console.OutputEncoding = Encoding.UTF8;
-        string sparkleString = "\u2728 ";
-
-        Enumerable.Range(0, num).ToList().ForEach(_ => Console.Write(sparkleString));
+        PrintSparkles print = new PrintSparkles();
+        print.Print(num);
     }
 }
 
@@ -30,5 +28,16 @@ public class StringInput: IInput
         if (int.TryParse(Console.ReadLine(), out int result)) return result;
 
         return 0;
+    }
+}
+
+public class PrintSparkles()
+{
+    public void Print(int num)
+    {
+        Console.OutputEncoding = Encoding.UTF8;
+        string sparkleString = "\u2728 ";
+
+        Enumerable.Range(0, num).ToList().ForEach(_ => Console.Write(sparkleString));
     }
 }
