@@ -10,8 +10,7 @@ public class Program
 
         ContainerBuilder builder = new ContainerBuilder();
         builder.RegisterType<InputChecker>().As<IInputChecker>();
-        builder.RegisterType<TextPrinter>().As<IPrint>();
-        builder.RegisterType<SparklePrinter>().As<IPrint>();
+        builder.RegisterType<Printer>().As<IPrint>();
         builder.RegisterType<UnnecessaryClientClass>();
         IContainer container = builder.Build();
         
@@ -20,7 +19,7 @@ public class Program
         do
         {
             input = Console.ReadLine() ?? "";
-            var client = container.Resolve<UnnecessaryClientClass>();
+            var client = container.Resolve<UnnecessaryClientClass>(new NamedParameter("input", input));
             client.Run();
         } while (input != "exit");
     }
@@ -43,13 +42,12 @@ public class InputChecker(): IInputChecker
 
 public interface IPrint
 {
-    void PrintString(string str);
-    void PrintNumber(int num);
+    void Print(int num, string? str = null);
 }
 
-public class SparklePrinter(): IPrint
+public class Printer(): IPrint
 {
-    public void PrintNumber(int num)
+    public void Print(int num, string? str)
     {
         Console.OutputEncoding = Encoding.UTF8;
         string sparkleString = "\u2728 ";
@@ -57,62 +55,36 @@ public class SparklePrinter(): IPrint
         Enumerable.Range(0, num).ToList().ForEach(_ => Console.Write(sparkleString));
         Console.WriteLine();
     }
-
-    public void PrintString(string str)
-    {
-    }
-}
-
-public class TextPrinter(): IPrint
-{
-    public void PrintString(string str)
-    {
-        Console.OutputEncoding = Encoding.UTF8;
-        string sparkleString = "\u2728 ";
-
-        Console.WriteLine(str + sparkleString);
-    }
-    
-    public void PrintNumber(int num)
-    {
-    }
 }
 
 public class UnnecessaryClientClass
 {
-    public UnnecessaryClientClass(string input, IInputChecker checkInput, IPrint printText, IPrint printSparkles)
+    public UnnecessaryClientClass(string input, IInputChecker checkInput, IPrint printer)
     {
         _Input = input;
         _CheckInput = checkInput;
-        _PrintText = printText;
-        _PrintSparkles = printSparkles;
+        _Printer = printer;
     }
 
     string _Input;
     IInputChecker _CheckInput;
-    IPrint _PrintText;
-    IPrint _PrintSparkles;
+    IPrint _Printer;
     
     public void Run()
     {
-        // InputChecker checkInput = new InputChecker(input);
         int num = _CheckInput.Check(_Input);
 
         if (num == 0)
         {
-            string text = _Input.ToString() ?? "Sparkle";
-            // PrintText printText = new PrintText(text); 
-            _PrintText.PrintString(text);
+            Console.WriteLine("Why not? \u2728 ");
         }
         else if (num > 10000)
         {
-            // PrintText printText = new PrintText("Really? Why so many??"); 
-            _PrintText.PrintString("Really? Why so many??");
+            Console.WriteLine("Why so many?? \u2728 ");
         }
         else
         {
-            // PrintSparkles printSparkles = new PrintSparkles(num);
-            _PrintSparkles.PrintNumber(num);
+            _Printer.Print(num);
         }   
     }
 }
