@@ -5,13 +5,13 @@ namespace Sparklarkle;
 
 public class Program
 {
-    static void Main(string[] args)
+    static void Main()
     {
 
         ContainerBuilder builder = new ContainerBuilder();
         builder.RegisterType<InputChecker>().As<IInputChecker>();
-        builder.RegisterType<Printer>().As<IPrint>();
-        builder.RegisterType<UnnecessaryClientClass>();
+        builder.RegisterType<Printer>().As<IPrinter>();
+        builder.RegisterType<SparkleMachine>();
         IContainer container = builder.Build();
         
         Console.WriteLine("Want some sparkles?");
@@ -19,7 +19,7 @@ public class Program
         do
         {
             input = Console.ReadLine() ?? "";
-            var client = container.Resolve<UnnecessaryClientClass>(new NamedParameter("input", input));
+            var client = container.Resolve<SparkleMachine>(new NamedParameter("input", input));
             client.Run();
         } while (input != "exit");
     }
@@ -40,12 +40,12 @@ public class InputChecker(): IInputChecker
     }
 }
 
-public interface IPrint
+public interface IPrinter
 {
     void Print(int num, string? str = null);
 }
 
-public class Printer(): IPrint
+public class Printer(): IPrinter
 {
     public void Print(int num, string? str)
     {
@@ -57,9 +57,9 @@ public class Printer(): IPrint
     }
 }
 
-public class UnnecessaryClientClass
+public class SparkleMachine
 {
-    public UnnecessaryClientClass(string input, IInputChecker checkInput, IPrint printer)
+    public SparkleMachine(string input, IInputChecker checkInput, IPrinter printer)
     {
         _Input = input;
         _CheckInput = checkInput;
@@ -68,7 +68,7 @@ public class UnnecessaryClientClass
 
     string _Input;
     IInputChecker _CheckInput;
-    IPrint _Printer;
+    IPrinter _Printer;
     
     public void Run()
     {
