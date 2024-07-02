@@ -7,11 +7,16 @@ public class UnnecessaryClientClassTests
     [Theory]
     [InlineData("3", "\u2728 \u2728 \u2728 \r\n")]
     [InlineData("cats", "cats\u2728 \r\n")]
-    [InlineData("5000", "Really? Why so many??\u2728 \r\n")]
+    [InlineData("12000", "Really? Why so many??\u2728 \r\n")]
     public void Run_HandlesVariousInputs_CorrectlyPrintsOutput(string input, string expectedOutput)
     {
         // Arrange
-        var client = new UnnecessaryClientClass(input);
+        var client = new UnnecessaryClientClass(
+            input,
+            new InputChecker(),
+            new PrintText(),
+            new PrintSparkles()
+        );
 
         // Redirect console output
         using (var sw = new StringWriter())

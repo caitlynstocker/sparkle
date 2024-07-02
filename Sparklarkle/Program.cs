@@ -13,7 +13,9 @@ public class Program
             input = Console.ReadLine() ?? "";
             UnnecessaryClientClass client = new UnnecessaryClientClass(
                 input,
-                new InputChecker()
+                new InputChecker(),
+                new PrintText(),
+                new PrintSparkles()
             );
             client.Run();
         } while (input != "exit");
@@ -37,12 +39,13 @@ public class InputChecker(): IInputChecker
 
 public interface IPrint
 {
-    void Print();
+    void PrintString(string str);
+    void PrintNumber(int num);
 }
 
-public class PrintSparkles(int num): IPrint
+public class PrintSparkles(): IPrint
 {
-    public void Print()
+    public void PrintNumber(int num)
     {
         Console.OutputEncoding = Encoding.UTF8;
         string sparkleString = "\u2728 ";
@@ -50,29 +53,41 @@ public class PrintSparkles(int num): IPrint
         Enumerable.Range(0, num).ToList().ForEach(_ => Console.Write(sparkleString));
         Console.WriteLine();
     }
+
+    public void PrintString(string str)
+    {
+    }
 }
 
-public class PrintText(string str): IPrint
+public class PrintText(): IPrint
 {
-    public void Print()
+    public void PrintString(string str)
     {
         Console.OutputEncoding = Encoding.UTF8;
         string sparkleString = "\u2728 ";
 
         Console.WriteLine(str + sparkleString);
     }
+    
+    public void PrintNumber(int num)
+    {
+    }
 }
 
 public class UnnecessaryClientClass
 {
-    public UnnecessaryClientClass(string input, IInputChecker checkInput)
+    public UnnecessaryClientClass(string input, IInputChecker checkInput, IPrint printText, IPrint printSparkles)
     {
         _Input = input;
         _CheckInput = checkInput;
+        _PrintText = printText;
+        _PrintSparkles = printSparkles;
     }
 
     string _Input;
     IInputChecker _CheckInput;
+    IPrint _PrintText;
+    IPrint _PrintSparkles;
     
     public void Run()
     {
@@ -82,18 +97,18 @@ public class UnnecessaryClientClass
         if (num == 0)
         {
             string text = _Input.ToString() ?? "Sparkle";
-            PrintText printText = new PrintText(text); 
-            printText.Print();
+            // PrintText printText = new PrintText(text); 
+            _PrintText.PrintString(text);
         }
-        else if (num > 1000)
+        else if (num > 10000)
         {
-            PrintText printText = new PrintText("Really? Why so many??"); 
-            printText.Print();
+            // PrintText printText = new PrintText("Really? Why so many??"); 
+            _PrintText.PrintString("Really? Why so many??");
         }
         else
         {
-            PrintSparkles printSparkles = new PrintSparkles(num);
-            printSparkles.Print();
+            // PrintSparkles printSparkles = new PrintSparkles(num);
+            _PrintSparkles.PrintNumber(num);
         }   
     }
 }
