@@ -11,15 +11,23 @@ public class Program
         do
         {
             input = Console.ReadLine() ?? "";
-            UnnecessaryClientClass client = new UnnecessaryClientClass(input);
+            UnnecessaryClientClass client = new UnnecessaryClientClass(
+                input,
+                new InputChecker()
+            );
             client.Run();
         } while (input != "exit");
     }
 }
 
-public class InputChecker(string input)
+public interface IInputChecker
 {
-    public int Check()
+    int Check(string input);
+}
+
+public class InputChecker(): IInputChecker
+{
+    public int Check(string input)
     {
         if (int.TryParse(input, out int result)) return result;
 
@@ -55,16 +63,25 @@ public class PrintText(string str): IPrint
     }
 }
 
-public class UnnecessaryClientClass(string input)
+public class UnnecessaryClientClass
 {
+    public UnnecessaryClientClass(string input, IInputChecker checkInput)
+    {
+        _Input = input;
+        _CheckInput = checkInput;
+    }
+
+    string _Input;
+    IInputChecker _CheckInput;
+    
     public void Run()
     {
-        InputChecker checkInput = new InputChecker(input);
-        int num = checkInput.Check();
+        // InputChecker checkInput = new InputChecker(input);
+        int num = _CheckInput.Check(_Input);
 
         if (num == 0)
         {
-            string text = input.ToString() ?? "Sparkle";
+            string text = _Input.ToString() ?? "Sparkle";
             PrintText printText = new PrintText(text); 
             printText.Print();
         }
