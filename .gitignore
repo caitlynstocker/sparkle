@@ -1,0 +1,110 @@
+# Rider specific
+.idea/
+.idea_modules/
+.idea/**/workspace.xml
+.idea/**/tasks.xml
+.idea/dictionaries
+.idea/shelf
+.idea/**/gradle.xml
+.idea/**/libraries
+.idea/**/xmlns.scheme.xml
+.idea/**/jsLibraryMappings.xml
+.idea/**/assetWizard.xml
+.idea/**/sqlDataSources.xml
+.idea/**/git.xml
+.idea/**/dataSources/
+.idea/**/dataSources.local/
+.idea/**/dynamic.xml
+.idea/**/uiDesigner.xml
+.idea/**/dataSources.ids
+.idea/**/shelf/
+.idea/.rider_dataSources/
+
+# General .NET and C# files
+bin/
+obj/
+[Bb]uild/
+[Ll]og/
+[Ll]ogs/
+[Tt]est[Rr]esults/
+[Tt]est[Rr]esult-*.trx
+**/artifacts/
+
+# Rider and Mono specific directories and files
+*.userprefs
+mono_crash.*
+*.sln.docstates
+
+# Visual Studio files
+.vscode/
+.vscode/settings.json
+.vs/
+*.vspscc
+*.vssscc
+
+# NuGet
+*.nupkg
+*.snupkg
+.nuget/
+packages/
+project.lock.json
+project.fragment.lock.json
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.lnk
+
+# Windows Installer files
+*.cab
+*.msi
+*.msm
+*.msp
+
+# Recycle Bin used on file shares
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Web projects
+ClientBin/
+bower_components/
+
+# SQL Server files
+*.mdf
+*.ldf
+
+# Business Intelligence projects
+*.rdl.data
+*.bim.layout
+*.bim_*.settings
+
+# Publish Web Output
+*.Publish.xml
+
+# Office 365 files
+*.sdf
+
+# Linux file system
+*~
+
+# Thumbnails
+*.thumb
+*.thumbs
+
