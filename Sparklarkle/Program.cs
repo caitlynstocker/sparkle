@@ -7,7 +7,10 @@ public class Program
 {
     static void Main()
     {
+        Console.OutputEncoding = Encoding.UTF8;
 
+        // Once all your types are registered on your autofac container
+        // you can request instances of them using container.Resolve, as below
         ContainerBuilder builder = new ContainerBuilder();
         builder.RegisterType<InputChecker>().As<IInputChecker>();
         builder.RegisterType<Printer>().As<IPrinter>();
@@ -25,7 +28,7 @@ public class Program
     }
 }
 
-public interface IInputChecker
+public interface IInputChecker // not actually required in this case
 {
     int Check(string input);
 }
@@ -40,7 +43,7 @@ public class InputChecker(): IInputChecker
     }
 }
 
-public interface IPrinter
+public interface IPrinter // not actually required in this case
 {
     void Print(int num, string? str = null);
 }
@@ -49,7 +52,6 @@ public class Printer(): IPrinter
 {
     public void Print(int num, string? str)
     {
-        Console.OutputEncoding = Encoding.UTF8;
         string sparkleString = "\u2728 ";
 
         Enumerable.Range(0, num).ToList().ForEach(_ => Console.Write(sparkleString));
@@ -59,11 +61,12 @@ public class Printer(): IPrinter
 
 public class SparkleMachine
 {
+    // Passes instances of service classes in constructor 
     public SparkleMachine(string input, IInputChecker checkInput, IPrinter printer)
     {
         _Input = input;
-        _CheckInput = checkInput;
-        _Printer = printer;
+        _CheckInput = checkInput;       // Supplied by autofac
+        _Printer = printer;             // Supplied by autofac
     }
 
     string _Input;
