@@ -14,8 +14,8 @@ public class UnnecessaryClientClassTests
         var client = new UnnecessaryClientClass(
             input,
             new InputChecker(),
-            new PrintText(),
-            new PrintSparkles()
+            new TextPrinter(),
+            new SparklePrinter()
         );
 
         // Redirect console output

@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using Autofac;
 
 namespace Sparklarkle;
 
@@ -6,17 +7,20 @@ public class Program
 {
     static void Main(string[] args)
     {
+
+        ContainerBuilder builder = new ContainerBuilder();
+        builder.RegisterType<InputChecker>().As<IInputChecker>();
+        builder.RegisterType<TextPrinter>().As<IPrint>();
+        builder.RegisterType<SparklePrinter>().As<IPrint>();
+        builder.RegisterType<UnnecessaryClientClass>();
+        IContainer container = builder.Build();
+        
         Console.WriteLine("Want some sparkles?");
         string input;
         do
         {
             input = Console.ReadLine() ?? "";
-            UnnecessaryClientClass client = new UnnecessaryClientClass(
-                input,
-                new InputChecker(),
-                new PrintText(),
-                new PrintSparkles()
-            );
+            var client = container.Resolve<UnnecessaryClientClass>();
             client.Run();
         } while (input != "exit");
     }
@@ -43,7 +47,7 @@ public interface IPrint
     void PrintNumber(int num);
 }
 
-public class PrintSparkles(): IPrint
+public class SparklePrinter(): IPrint
 {
     public void PrintNumber(int num)
     {
@@ -59,7 +63,7 @@ public class PrintSparkles(): IPrint
     }
 }
 
-public class PrintText(): IPrint
+public class TextPrinter(): IPrint
 {
     public void PrintString(string str)
     {
