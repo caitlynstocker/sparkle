@@ -1,6 +1,6 @@
 namespace Sparklarkle;
 
-// Adding this to experiment with mocking
+// Adding to experiment with mocking
 
 public interface INumberProvider
 {

@@ -79,7 +79,9 @@ public class SparkleMachine
     public void Run()
     {
         int num = _CheckInput.Check(_Input);
-
+        
+        // Obvs could just use a switch statement on the input here, but I wanted to mess
+        // around with Autofac with the InputChecker class. So I need a reason to use it!!
         if (num == 0)
         {
             if (_Input == "random")
