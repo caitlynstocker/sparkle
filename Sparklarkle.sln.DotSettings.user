@@ -1,6 +1,6 @@
 ﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=9a2da0d2_002D512a_002D43d0_002Dbc5e_002Dca8a5b63aa4c/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="InputCheckerTests" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;TestAncestor&gt;&#xD;
-    &lt;TestId&gt;xUnit::FBFE4E03-2771-4B84-AE87-0088A0306B78::net8.0::Sparklarkle.Tests.UnnecessaryClientClassTests&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::FBFE4E03-2771-4B84-AE87-0088A0306B78::net8.0::Sparklarkle.Tests.SparkeMachine_Run_Tests&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>

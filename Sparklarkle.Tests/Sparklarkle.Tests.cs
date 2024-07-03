@@ -39,5 +39,28 @@ public class SparkeMachine_Run_Tests
             Assert.Equal(expectedOutput, result);
         }
     }
-
+    
+    // next uncomment random number.cs
+    // then try writing a test here that would pass if you fed the program the word random and it spat out the 153 sparkeles using the random mocker
+    // THEN try to adjust the program like a reeeeal test driven developer
+    
+    [Fact]
+    public void Run_HandlesRandomNumber_CorrectlyPrintsOutput()
+    {
+        // Request an instance of SparkleMachine
+        var sparkleMachine = container.Resolve<SparkleMachine>(new NamedParameter("input", "random"));
+    
+        // Redirect console output
+        using (var sw = new StringWriter())
+        {
+            Console.SetOut(sw);
+    
+            // Act
+            sparkleMachine.Run();
+    
+            // Assert
+            var result = sw.ToString();
+            Assert.Equal("\u2728 \u2728 \u2728 \u2728 \r\n", result);
+        }
+    }
 }

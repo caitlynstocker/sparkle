@@ -79,7 +79,16 @@ public class SparkleMachine
 
         if (num == 0)
         {
-            Console.WriteLine("Why not? \u2728 ");
+            if (_Input == "random")
+            {
+                NumberProvider numberProvider = new();
+                int randomNumber = numberProvider.GetRandomNumber();
+                _Printer.Print(randomNumber);
+            }
+            else
+            {
+                Console.WriteLine("Why not? \u2728 ");
+            }
         }
         else if (num > 10000)
         {
