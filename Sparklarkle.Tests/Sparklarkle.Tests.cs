@@ -13,6 +13,7 @@ public class SparkeMachine_Run_Tests
         ContainerBuilder builder = new ContainerBuilder();
         builder.RegisterType<InputChecker>().As<IInputChecker>();
         builder.RegisterType<Printer>().As<IPrinter>();
+        builder.RegisterType<MockNumberProvider>().As<INumberProvider>();
         builder.RegisterType<SparkleMachine>();
         container = builder.Build();
     }

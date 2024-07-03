@@ -14,6 +14,7 @@ public class Program
         ContainerBuilder builder = new ContainerBuilder();
         builder.RegisterType<InputChecker>().As<IInputChecker>();
         builder.RegisterType<Printer>().As<IPrinter>();
+        builder.RegisterType<NumberProvider>().As<INumberProvider>();
         builder.RegisterType<SparkleMachine>();
         IContainer container = builder.Build();
         
@@ -62,16 +63,18 @@ public class Printer(): IPrinter
 public class SparkleMachine
 {
     // Passes instances of service classes in constructor 
-    public SparkleMachine(string input, IInputChecker checkInput, IPrinter printer)
+    public SparkleMachine(string input, IInputChecker checkInput, IPrinter printer, INumberProvider numberProvider)
     {
         _Input = input;
-        _CheckInput = checkInput;       // Supplied by autofac
-        _Printer = printer;             // Supplied by autofac
+        _CheckInput = checkInput;           // Supplied by autofac
+        _Printer = printer;                 // Supplied by autofac
+        _NumberProvider = numberProvider;   // Supplied by autofac
     }
 
     string _Input;
     IInputChecker _CheckInput;
     IPrinter _Printer;
+    INumberProvider _NumberProvider;
     
     public void Run()
     {
@@ -81,8 +84,7 @@ public class SparkleMachine
         {
             if (_Input == "random")
             {
-                NumberProvider numberProvider = new();
-                int randomNumber = numberProvider.GetRandomNumber();
+                int randomNumber = _NumberProvider.GetRandomNumber();
                 _Printer.Print(randomNumber);
             }
             else
