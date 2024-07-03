@@ -4,21 +4,25 @@ using Xunit;
 
 namespace Sparklarkle.Tests;
 
-public class SparkleMachineTests
+public class SparkeMachine_Run_Tests
 {
-    [Theory]
-    [InlineData("3", "\u2728 \u2728 \u2728 \r\n")]
-    [InlineData("cats", "Why not? \u2728 \r\n")]
-    [InlineData("12000", "Why so many?? \u2728 \r\n")]
-    public void Run_HandlesVariousInputs_CorrectlyPrintsOutput(string input, string expectedOutput)
+    private IContainer container;
+    public SparkeMachine_Run_Tests()
     {
         // Set up autofac container
         ContainerBuilder builder = new ContainerBuilder();
         builder.RegisterType<InputChecker>().As<IInputChecker>();
         builder.RegisterType<Printer>().As<IPrinter>();
         builder.RegisterType<SparkleMachine>();
-        IContainer container = builder.Build();
-        
+        container = builder.Build();
+    }
+    
+    [Theory]
+    [InlineData("3", "\u2728 \u2728 \u2728 \r\n")]
+    [InlineData("cats", "Why not? \u2728 \r\n")]
+    [InlineData("12000", "Why so many?? \u2728 \r\n")]
+    public void Run_HandlesVariousInputs_CorrectlyPrintsOutput(string input, string expectedOutput)
+    {
         // Request an instance of SparkleMachine
         var sparkleMachine = container.Resolve<SparkleMachine>(new NamedParameter("input", input));
 
@@ -35,4 +39,5 @@ public class SparkleMachineTests
             Assert.Equal(expectedOutput, result);
         }
     }
+
 }
